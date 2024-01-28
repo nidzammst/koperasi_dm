@@ -27,7 +27,6 @@ app.use(express.json()); // Memastikan aplikasi dapat membaca body JSON
 
 app.get('/', (req, res) => {
   res.json({
-    success: true,
     message: '﷽',
   });
 });
