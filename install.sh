@@ -1,4 +1,5 @@
 apt-get update && apt-get upgrade
+cd ~/
 git clone https://github.com/nvm-sh/nvm.git .nvm
 cd ~/.nvm
 . ./nvm.sh
