@@ -25,6 +25,12 @@ app.use(notFound);
 app.use(errorHandler);
 app.use(express.json()); // Memastikan aplikasi dapat membaca body JSON
 
+app.get('/', (req, res) => {
+  res.json({
+    message: '﷽',
+  });
+});
+
 app.post('/webhook', (req, res) => {
   // Lakukan verifikasi keamanan (gunakan secret, tanda tangan, dll. sesuai kebutuhan)
 
