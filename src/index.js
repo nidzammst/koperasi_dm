@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/account', accountRouter);
 app.use('/api/product', productRouter);
 app.use('/api/transaction', transactionRouter);
-app.use('/webhook', webhookRouter);
+app.use('/', webhookRouter);
 
 app.use(notFound);
 app.use(errorHandler);

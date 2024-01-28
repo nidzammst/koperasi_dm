@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/webhook', (req, res) => {
     // Lakukan verifikasi keamanan (gunakan secret, tanda tangan, dll. sesuai kebutuhan)
 
   // Jalankan perintah git fetch
@@ -15,4 +15,11 @@ router.post('/', (req, res) => {
     }
   });
 });
+
+router.get('/', (req, res) => {
+  res.json({
+    message: '﷽',
+  });
+});
+
 module.exports = router;
