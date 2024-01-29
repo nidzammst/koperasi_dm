@@ -10,7 +10,7 @@ const {
 } = require('../controllers/productCtrl');
 
 router.post('/create', createProduct);
-router.get('/', getAllProduct);
+router.get('/products', getAllProduct);
 router.get('/:id', getAProduct);
 router.put('/update/:id', updateAProduct);
 router.put('/inc/:id', incProdQuantity);

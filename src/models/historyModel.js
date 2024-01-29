@@ -15,7 +15,7 @@ var historySchema = new mongoose.Schema({
 	action: {
 		type: String,
 		required: true,
-		enum: ["Vendor's Cash Withdrawal"/* untuk penarikan tunai*/, "Santri's Cash Withdrawal", "Fund Transfer", "Top-Up"]
+		enum: ["Vendor's Cash Withdrawal", "Santri's Cash Withdrawal", "Fund Transfer", "Top-Up"]
 	},
 	note: {
 		type: String,
@@ -32,6 +32,17 @@ var historySchema = new mongoose.Schema({
 	withdrawalAmount: { // jumlah uang yang dicairkan
 		type: Number,
 	},
+	convertedProducts: [ // produk yang dikonversi ke uang
+		{
+			product: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Product"
+			},
+			sold: {
+				type: Number
+			}
+		}
+	],
 	transferAmount: { // jumlah uang yang ditransfer
 		type: Number
 	},
@@ -39,11 +50,17 @@ var historySchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Account"
 	},
+	currTransferringAccountBalance: {
+		type: Number
+	},
 	receivingAccount: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Account"
 	},
-	remainingBalance: { // jumlah saldo yang tersisa
+	currReceivingAccountBalance: {
+		type: Number
+	},
+	currentBalance: { // jumlah saldo yang tersisa/ saat ini
 		type: Number,
 		required: true,
 		default: 0

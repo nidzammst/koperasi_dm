@@ -2,6 +2,7 @@ const Product = require('../models/productModel')
 const Account = require('../models/accountModel')
 const asyncHandler = require('express-async-handler');
 const validateMongodbId = require('../utils/validateMongodbId')
+const getProducts = require('../utils/productQuery')
 
 const createProduct = asyncHandler(async (req, res) => {
   try {
@@ -24,8 +25,9 @@ const createProduct = asyncHandler(async (req, res) => {
 
 const getAllProduct = asyncHandler(async (req, res) => {
   try {
-    const allProduct = await Product.find();
-    res.json({ success: true, allProduct })
+    const allProducts = await getProducts(req.query);
+
+    res.json({ success: true, allProducts })
   } catch (error) {
     res.json({ success: false, error: error.message });
   }
