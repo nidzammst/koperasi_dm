@@ -13,7 +13,7 @@ var productSchema = new mongoose.Schema({
 	},
 	vendor: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Account"
+		ref: "Vendor"
 	},
 	quantity: {
 		type: Number,
@@ -30,14 +30,20 @@ var productSchema = new mongoose.Schema({
 	category: [{
 		type: String
 	}],
-	sold: {
+	soldQuantity: {
 		type: Number,
 		default: 0
 	}
 }, {
 	timestamps: true,
 });
- productSchema.pre('save', async function(next) {
+
+productSchema.pre('update', async function(next) {
+	console.log("Ok")
+})
+
+
+productSchema.pre('save', async function(next) {
 	try {
 		// Membuat barcode menggunakan id akun sebagai data
 	    const canvas = createCanvas();

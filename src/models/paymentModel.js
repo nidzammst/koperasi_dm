@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const JsBarcode = require('jsbarcode');
 const { createCanvas } = require('canvas');
 
-var historySchema = new mongoose.Schema({
+var paymentSchema = new mongoose.Schema({
 	account: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Account"
+		ref: "Santri"
 	},
 	cancelled: {
 		type: Boolean,
@@ -32,6 +32,9 @@ var historySchema = new mongoose.Schema({
 	withdrawalAmount: { // jumlah uang yang dicairkan
 		type: Number,
 	},
+	balanceBefore: {
+		type: Number
+	},
 	convertedProducts: [ // produk yang dikonversi ke uang
 		{
 			product: {
@@ -48,14 +51,20 @@ var historySchema = new mongoose.Schema({
 	},
 	transferringAccount: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Account"
+		ref: "Santri"
+	},
+	senderBalanceBefore: {
+		type: Number
 	},
 	currTransferringAccountBalance: {
 		type: Number
 	},
 	receivingAccount: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Account"
+		ref: "Santri"
+	},
+	receiverBalanceBefore: {
+		type: Number
 	},
 	currReceivingAccountBalance: {
 		type: Number
@@ -69,4 +78,4 @@ var historySchema = new mongoose.Schema({
 	timestamps: true,
 });
 
-module.exports = mongoose.model("History", historySchema)
+module.exports = mongoose.model("Payment", paymentSchema)

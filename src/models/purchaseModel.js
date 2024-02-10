@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-var shoppingHistorySchema = new mongoose.Schema({
+var purchaseSchema = new mongoose.Schema({
 	account: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Account"
+		ref: "Santri"
 	},
 	cancelled: {
 		type: Boolean,
@@ -30,6 +30,9 @@ var shoppingHistorySchema = new mongoose.Schema({
 			}
 		}
 	],
+	note: {
+		type: String
+	},
 	purchaseAmount: { // jumlah uang yang harus dikeluarkan untuk belanja
 		type: Number,
 		required: true
@@ -39,8 +42,13 @@ var shoppingHistorySchema = new mongoose.Schema({
 		required: true,
 		default: 0
 	},
+	balanceBefore: {
+		type: Number,
+		required: true,
+		default: 0
+	}
 }, {
 	timestamps: true,
 });
 
-module.exports = mongoose.model("ShoppingHistory", shoppingHistorySchema)
+module.exports = mongoose.model("Purchase", purchaseSchema)

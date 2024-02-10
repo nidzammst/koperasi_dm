@@ -1,15 +1,18 @@
-const Account = require('../models/accountModel')
+const Santri = require('../models/santriModel')
+const Vendor = require('../models/vendorModel')
 const asyncHandler = require('express-async-handler');
 const validateMongodbId = require('../utils/validateMongodbId')
+const { santriQuery, vendorQuery } = require('../utils/query')
+const { updatedAccounts } = require('../utils/mappingArray')
 
-const createAccount = asyncHandler(async (req, res) => {
+const createSantriAccount = asyncHandler(async (req, res) => {
 	try {
     const { fullname } = req.body;
 
-    const existingAccount = await Account.findOne({ fullname });
+    const existingAccount = await Santri.findOne({ fullname });
     if(!existingAccount) {
       // create a new user
-      const newAccount = await Account.create(req.body);
+      const newAccount = await Santri.create(req.body);
       res.json({ success: true, account: newAccount });
     } else {
       throw new Error("User Already Exist")
@@ -20,90 +23,113 @@ const createAccount = asyncHandler(async (req, res) => {
   }
 })
 
-const getOneAccount = asyncHandler(async (req, res) => {
+const createVendorAccount = asyncHandler(async (req, res) => {
+  try {
+    const { fullname } = req.body;
+
+    const existingAccount = await Vendor.findOne({ fullname });
+    if(!existingAccount) {
+      // create a new user
+      const newAccount = await Vendor.create(req.body);
+      res.json({ success: true, account: newAccount });
+    } else {
+      throw new Error("User Already Exist")
+    }
+
+  } catch (error) {
+    res.json({ success: false, error: error.message });
+  }
+})
+
+const getOneSantri = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params
     validateMongodbId(id)
 
-    const getAAccount = await Account.findById(id)
-    res.json({ success: true, getAAccount })
+    const getASantri = await Santri.findById(id)
+    res.json({ success: true, getASantri })
   } catch (error) {
     res.json({ success: false, error: error.message });
   }
 })
 
-const getSantriAccount = asyncHandler(async (req, res) => {
+const getOneVendor = asyncHandler(async (req, res) => {
   try {
-    const allSantriAccount = await Account.find({ role: "Santri" })
-    res.json({ success: true, allSantriAccount });
+    const { id } = req.params
+    validateMongodbId(id)
+
+    const getAVendor = await Vendor.findById(id)
+    res.json({ success: true, getAVendor })
   } catch (error) {
     res.json({ success: false, error: error.message });
   }
 })
 
-const getVendorAccount = asyncHandler(async (req, res) => {
+const getSantries = asyncHandler(async (req, res) => {
   try {
-    const allVendorAccount = await Account.find({ role: "Vendor" })
-    res.json({ success: true, allVendorAccount });
+    const santries = await santriQuery(req.query)
+    res.json({ success: true, santries });
   } catch (error) {
     res.json({ success: false, error: error.message });
   }
 })
 
-const getAdminAccount = asyncHandler(async (req, res) => {
+const getVendors = asyncHandler(async (req, res) => {
   try {
-    const allAdminAccount = await Account.find({ role: "Admin" })
-    res.json({ success: true, allAdminAccount });
+    const vendors = await vendorQuery(req.query)
+    res.json({ success: true, vendors });
   } catch (error) {
     res.json({ success: false, error: error.message });
   }
 })
 
-const deleteAccount = asyncHandler(async (req, res) => {
+const banSantriAccount = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
     validateMongodbId(id);
-    const findedAccount = await Account.findById(id)
-    if(!findedAccount) {
+
+    const findedSantri = await Santri.findById(id)
+    if(!findedSantri) {
       res.json({ success: false, message: "User not found"}).end()
     } else {
-      const deletedAccount = await Account.findByIdAndDelete(id);
-      res.json({ success: true, deletedAccount, message: `User with ID: ${id} deleted` })
+      const bannedSantri = await Santri.findByIdAndDelete(id);
+      res.json({ success: true, bannedSantri, message: `User with ID: ${id} deleted` })
     }
   } catch (error) {
     res.json({ success: false, error: error.message });
   }
 })
 
-const updateAccount = asyncHandler(async (req, res) => {
+const updateSantriAccount = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params
     validateMongodbId(id)
 
-    const findedAccount = await Account.findById(id)
-    if(!findedAccount) {
+    const findedSantri = await Santri.findById(id)
+    if(!findedSantri) {
       res.json({ success: false, message: "User not found"}).end()
     } else {
-      const updatedAccount = await Account.findByIdAndUpdate(id, req.body)
+      const updatedSantri = await Santri.findByIdAndUpdate(id, req.body)
 
-      res.json({ success: true, updatedAccount })
+      res.json({ success: true, updatedSantri })
     }
   } catch (error) {
     res.json({ success: false, error: error.message });
   }
 })
 
-const changeRole = asyncHandler(async (req, res) => {
+const updateVendorAccount = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params
     validateMongodbId(id)
 
-    const findedAccount = await Account.findById(id)
-    if(!findedAccount) {
+    const findedAccount = await Vendor.findById(id)
+    if(!findedVendor) {
       res.json({ success: false, message: "User not found"}).end()
     } else {
-      const updatedAccount = await Account.findByIdAndUpdate(id, req.body)
-      res.json({ success: true, updatedAccount })
+      const updatedVendor = await Vendor.findByIdAndUpdate(id, req.body)
+
+      res.json({ success: true, updatedVendor })
     }
   } catch (error) {
     res.json({ success: false, error: error.message });
@@ -111,12 +137,13 @@ const changeRole = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-  createAccount,
-  getOneAccount,
-  getSantriAccount,
-  getVendorAccount,
-  getAdminAccount,
-  deleteAccount,
-  updateAccount,
-  changeRole
+  createSantriAccount,
+  createVendorAccount,
+  getOneSantri,
+  getOneVendor,
+  getSantries,
+  getVendors,
+  banSantriAccount,
+  updateSantriAccount,
+  updateVendorAccount
 }

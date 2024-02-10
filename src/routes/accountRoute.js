@@ -1,23 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const {
-	createAccount,
-  getOneAccount,
-  getSantriAccount,
-  getVendorAccount,
-  getAdminAccount,
-  deleteAccount,
-  updateAccount,
-  changeRole
+  createSantriAccount,
+  createVendorAccount,
+  getOneSantri,
+  getOneVendor,
+  getSantries,
+  getVendors,
+  banSantriAccount,
+  updateSantriAccount,
+  updateVendorAccount
 } = require('../controllers/accountCtrl');
 
-router.post('/create', createAccount);
-router.get('/account/:id', getOneAccount);
-router.get('/santri', getSantriAccount);
-router.get('/vendor', getVendorAccount);
-router.get('/admin', getAdminAccount);
-router.delete('/delete/:id', deleteAccount);
-router.put('/update/:id', updateAccount);
-router.put('/role/:id', changeRole);
+router.post('/create-santri', createSantriAccount);
+router.post('/create-vendor', createVendorAccount);
+router.get('/santri', getSantries);
+router.get('/vendor', getVendors);
+router.get('/santri/:id', getOneSantri);
+router.get('/vendor/:id', getOneVendor);
+router.put('/ban-santri/:id', banSantriAccount);
+router.put('/update-santri/:id', updateSantriAccount);
+router.put('/update-vendor/:id', updateVendorAccount);
 
 module.exports = router;

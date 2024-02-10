@@ -10,7 +10,9 @@ const { errorHandler, notFound } = require('./middlewares/errorHandler');
 const dbConnect = require('./config/dbConnect');
 const accountRouter = require('./routes/accountRoute');
 const productRouter = require('./routes/productRoute');
-const transactionRouter = require('./routes/transactionRoute');
+const paymentRouter = require('./routes/paymentRoute');
+const purchaseRouter = require('./routes/purchaseRoute');
+const dataRouter = require('./routes/dataRoute');
 
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -19,7 +21,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/account', accountRouter);
 app.use('/api/product', productRouter);
-app.use('/api/transaction', transactionRouter);
+app.use('/api/payment', paymentRouter);
+app.use('/api/purchase', purchaseRouter);
+app.use('/api/data', dataRouter);
 
 app.use(notFound);
 app.use(errorHandler);

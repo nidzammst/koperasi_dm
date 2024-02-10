@@ -1,0 +1,6 @@
+TODO list:
+1. Buat total uang santri
+2. Buat Total pendapatan koperasi dari laba (10%)
+3. 
+4. 
+5. 

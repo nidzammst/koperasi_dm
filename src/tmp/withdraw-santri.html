@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Invoice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+
+  <style>
+    .header {
+      text-align: center;
+    }
+
+    .invoice-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 10px;
+      font-size: 11px;
+      line-height: 16px;
+      font-family: 'Roboto Mono', monospace, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+      color: rgba(0, 0, 255, .65);
+    }
+
+    .invoice-box table {
+      width: 100%;
+      line-height: inherit;
+      text-align: left;
+    }
+
+    .invoice-box table td {
+      padding: 5px;
+      vertical-align: top;
+    }
+
+    .invoice-box table tr td:nth-child(2) {
+      text-align: right;
+    }
+
+    .invoice-box table tr.top table td.title {
+      font-size: 45px;
+      line-height: 45px;
+      color: #333;
+    }
+
+    .invoice-box table tr.heading td {
+      background: #eee;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+    }
+
+    .invoice-box table tr.item td {
+      border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box table tr.item.last td {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-box">
+    <div class="header">
+      <h1>Koperasi-DM</h1>
+    </div>
+    <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+        <td colspan="2">
+          <table>
+            <tr>
+              <td>Transaksi</td>
+              <td style="text-align: left; margin-left: 3px; align-content: right;">: {{nomor}}</td>
+            </tr>
+            <tr>
+              <td>Nama</td>
+              <td style="text-align: left; margin-left: 3px; align-content: right;">: {{name}}</td>
+            </tr>
+            <tr>
+              <td>Tanggal</td>
+              <td style="text-align: left; margin-left: 3px; align-content: right;">: {{date}}</td>
+            </tr>
+            <tr>
+              <td>Waktu</td>
+              <td style="text-align: left; margin-left: 3px; align-content: right;">: {{time}}</td>
+            </tr>
+            <tr>
+              <td>Admin</td>
+              <td style="text-align: left; margin-left: 3px; align-content: right;">: {{admin}}</td>
+            </tr>
+            <tr class="heading">
+              <td>Transaksi</td>
+              <td>Total</td>
+            </tr>
+
+            <tr class="item">
+              <td>Saldo Awal</td>
+              <td>{{balance}}</td>
+            </tr>
+            <tr class="item">
+              <td>Tarik Tunai</td>
+              <td>{{withdrawalAmount}}</td>
+            </tr>
+            <tr class="item">
+              <td>Saldo Akhir</td>
+              <td>{{currentBalance}}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

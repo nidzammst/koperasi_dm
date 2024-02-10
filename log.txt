@@ -1,3 +1,2 @@
 0 Whr
 0 s
-mongosh "mongodb+srv://nodeexpressprojects.hrm6tih.mongodb.net/" --apiVersion 1 --username nidzam

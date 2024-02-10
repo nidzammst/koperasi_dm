@@ -3,34 +3,34 @@ const router = express.Router();
 const {
 	getAllPaymentHistory,
 	getAccountPayment,
-	getAllShoppingHistory,
-	getAccountShoppingHistory,
 	topUp,
+	cancelTopUp,
+	printTopup,
 	santriWithdrawal,
+	cancelWithdrawal,
 	cancelSantriWithdrawal,
+	withdrawalPrint,
 	vendorWithdrawal,
 	cancelVendorWithdrawal,
+	printVendor,
 	transfer,
-	cancelTopUp,
-	cancelWithdrawal,
 	cancelTransfer,
-	shopping,
-	cancelShopping
-} = require('../controllers/transactionCtrl');
+	printTransfer
+} = require('../controllers/paymentCtrl');
 
-router.get('/payment', getAllPaymentHistory);
-router.get('/account-payment/:id', getAccountPayment);
-router.get('/', getAllShoppingHistory);
-router.get('/account-shopping/:id', getAccountShoppingHistory);
+router.get('/', getAllPaymentHistory);
+router.get('/account/:id', getAccountPayment);
 router.post('/topup/:id', topUp);
 router.delete('/cancel-topup/:id', cancelTopUp);
+router.get('/print-topup/:id', printTopup);
 router.post('/withdrawal-santri/:id', santriWithdrawal);
 router.delete('/cancel-santri-withdrawal/:id', cancelSantriWithdrawal);
-router.post('/withdrawal-vendor/:id', vendorWithdrawal);
+router.get('/print-withdrawal/:id', withdrawalPrint);
+router.post('/withdrawal-vendor', vendorWithdrawal);
 router.delete('/cancel-vendor-withdrawal/:id', cancelVendorWithdrawal);
+router.get('/print-withdrawal-vendor/:id', printVendor);
 router.post('/transfer', transfer);
 router.delete('/cancel-transfer/:id', cancelTransfer);
-router.post('/shopping', shopping);
-router.delete('/cancel-shopping/:id', cancelShopping);
+router.get('/print-transfer/:id', printTransfer);
 
 module.exports = router;
